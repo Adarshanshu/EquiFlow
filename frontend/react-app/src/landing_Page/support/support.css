@@ -1,0 +1,60 @@
+.support-page { overflow-x: clip; color: #424242; }
+.support-hero { position: relative; overflow: hidden; min-height: 285px; background: #387ed1; color: #fff; }
+.support-hero-inner { max-width: 630px; margin: 0 auto; padding: 25px 0 42px; }
+.support-hero-topline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 42px; }
+.support-hero-topline h1 { margin: 0; font-size: 14px; font-weight: 500; }
+.support-hero-topline a, .support-hero a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+.support-hero-topline a { font-size: 12px; }
+.support-hero-content { display: grid; grid-template-columns: 1.2fr .8fr; gap: 60px; }
+.support-search-column h2, .support-featured h2 { margin: 0 0 10px; font-size: 16px; font-weight: 500; line-height: 1.5; }
+.support-search-column h2 { max-width: 350px; }
+.support-search-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.support-search-column input { display: block; width: 100%; height: 46px; padding: 0 15px; border: 0; border-radius: 4px; outline-color: #b7d9ff; background: #fff; color: #333; font: inherit; font-size: 12px; box-shadow: 0 1px 2px rgba(0,0,0,.1); }
+.support-search-column input::placeholder { color: #777; opacity: 1; }
+.support-quick-links { display: flex; flex-wrap: wrap; gap: 5px 14px; margin-top: 10px; }
+.support-quick-links a, .support-featured li a { font-size: 11px; line-height: 1.5; }
+.support-featured ol { margin: 0; padding-left: 20px; }
+.support-featured li { padding: 0 0 9px 0; }
+.support-topics { max-width: 1120px; margin: 0 auto; padding: 52px 24px 72px; }
+.support-topics > h2 { margin: 0 0 32px; text-align: center; font-size: 25px; font-weight: 400; }
+.support-topic-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.support-topic-card { min-width: 0; padding: 20px 22px; border: 1px solid #eee; border-radius: 4px; }
+.support-topic-card h3 { margin: 0 0 16px; font-size: 18px; font-weight: 500; text-transform: capitalize; }
+.support-topic-card ul { margin: 0; padding-left: 20px; }
+.support-topic-card li { padding: 0 0 10px; color: #888; line-height: 1.5; }
+.support-topic-card a { color: #387ed1; font-size: 14px; text-decoration: none; overflow-wrap: anywhere; }
+.support-topic-card a:hover { color: #222; }
+.support-page footer { overflow: hidden; }
+.support-page footer .container { max-width: 1120px; width: 100%; margin: 0 auto; padding: 32px 24px !important; }
+.support-page footer .row { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 28px; margin: 0 0 48px !important; }
+.support-page footer .row > .col { width: auto; max-width: none; min-width: 0; padding: 0; }
+.support-page footer .row > .col:first-child img { display: block; width: min(100%, 180px) !important; margin-bottom: 18px; }
+.support-page footer .row > .col p:first-child { color: #333; font-weight: 500; text-transform: capitalize; }
+.support-page footer .row > .col a { display: inline-block; margin: 3px 0; color: #555 !important; font-size: 13px; overflow-wrap: anywhere; }
+.support-page footer .mt-5 p { color: #777; font-size: 11px; line-height: 1.7; }
+@media (max-width: 760px) {
+  .support-hero-inner { width: min(100% - 40px, 560px); padding: 23px 0 35px; }
+  .support-hero-topline { margin-bottom: 30px; }
+  .support-hero-content { grid-template-columns: 1fr; gap: 27px; }
+  .support-search-column h2 { max-width: 420px; }
+  .support-featured h2 { margin-bottom: 8px; }
+  .support-topics { padding: 38px 20px 52px; }
+  .support-topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .support-topic-card { padding: 18px; }
+  .support-page footer .row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; }
+  .support-page footer .row > .col:first-child { grid-column: 1 / -1; }
+  .support-page footer .mt-5 { margin-top: 24px !important; }
+}
+@media (max-width: 420px) {
+  .support-hero-inner { width: calc(100% - 32px); }
+  .support-hero-content { gap: 23px; }
+  .support-search-column input { font-size: 11px; padding: 0 11px; }
+  .support-quick-links { column-gap: 12px; }
+  .support-topics { padding: 32px 16px 42px; }
+  .support-topics > h2 { margin-bottom: 22px; font-size: 22px; }
+  .support-topic-grid { grid-template-columns: 1fr; gap: 12px; }
+  .support-topic-card { padding: 18px 20px; }
+  .support-page footer .container { padding: 27px 17px !important; }
+  .support-page footer .row { gap: 18px 12px; }
+  .support-page footer .row > .col a { font-size: 12px; }
+}
