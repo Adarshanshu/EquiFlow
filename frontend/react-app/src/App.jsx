@@ -1,7 +1,9 @@
+import HomePage from "./landing_Page/home/HomePage"
+
 function App() {
   return (
     <>
-    <h1> hello, starting of our project</h1>
+    <HomePage/>
     </>
   )
 }
