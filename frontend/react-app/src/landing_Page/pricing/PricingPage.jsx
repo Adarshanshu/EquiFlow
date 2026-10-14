@@ -10,8 +10,8 @@ const PricingPage = () => {
     <>
     <Navbar/>
     <Hero/>
-    <OpenAccount/>
     <Brockerage/>
+    <OpenAccount/>
     <Footer/>
     </>
   )

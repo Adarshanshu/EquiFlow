@@ -1,0 +1,28 @@
+.home-page { color: #424242; }
+.home-page img { max-width: 100%; height: auto; }
+.home-signup-button { display: block; width: min(100%, 220px); margin: 0 auto; }
+.home-page .row { flex-wrap: wrap; }
+.home-page .container { max-width: 1120px; }
+.home-page a { color: #387ed1; text-decoration: none; }
+.home-page a:hover { color: #222; }
+@media (max-width: 767px) {
+  .home-page .container { width: 100%; padding-left: 20px !important; padding-right: 20px !important; }
+  .home-page .row { margin-left: 0; margin-right: 0; }
+  .home-page [class*="col-"] { flex: 0 0 100%; width: 100%; max-width: 100%; }
+  .home-page .container[style*="marginBottom"] { margin-bottom: 3.5rem !important; }
+  .home-page .col-6, .home-page .col-4 { padding: 16px !important; }
+  .home-page .col-6 > p[style], .home-page p[style*="width"] { width: 100% !important; }
+  .home-page .col-6 img, .home-page .col-4 img { display: block; margin-left: auto; margin-right: auto; }
+  .home-page img[src*="pressLogos"] { width: 100% !important; }
+  .home-page img[src*="ecosystem"] { width: 100% !important; }
+  .home-page img[src*="education"] { width: 100% !important; max-height: 300px; object-fit: contain; margin-bottom: 24px; }
+  .home-page .mx-5 { margin-left: .5rem !important; margin-right: .5rem !important; }
+  .home-page [style*="margin: 2rem"] { margin: 1rem 0 !important; }
+  .home-page .container.p-5 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+  .home-page h1 { font-size: clamp(26px, 7vw, 34px); }
+}
+@media (max-width: 420px) {
+  .home-page .container { padding-left: 15px !important; padding-right: 15px !important; }
+  .home-page .col-6, .home-page .col-4 { padding: 10px !important; }
+  .home-page ul { padding-left: 22px; }
+}

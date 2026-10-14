@@ -1,0 +1,26 @@
+.about-page { color: #424242; }
+.about-intro { max-width: 1120px; margin: 0 auto; padding: 56px 24px 20px; }
+.about-intro h1 { max-width: 880px; margin: 0 auto; text-align: center; font-size: clamp(26px, 3vw, 34px); font-weight: 400; line-height: 1.5; }
+.about-story { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; margin-top: 55px; padding: 48px 28px 0; border-top: 1px solid #eee; color: #666; font-size: 16px; line-height: 1.8; }
+.about-story p { margin: 0 0 20px; }
+.about-founder { max-width: 1120px; margin: 60px auto 90px; padding: 0 24px; }
+.about-founder > h2 { margin: 0 0 44px; text-align: center; font-size: 30px; font-weight: 400; }
+.founder-layout { display: grid; grid-template-columns: minmax(250px, .75fr) minmax(0, 1.25fr); align-items: center; gap: 64px; }
+.founder-profile { text-align: center; }
+.founder-profile img { display: block; width: min(100%, 340px); aspect-ratio: 1; margin: auto; object-fit: cover; object-position: center 30%; border-radius: 50%; }
+.founder-profile h3 { margin: 20px 0 8px; font-size: 23px; font-weight: 400; }
+.founder-profile p { margin: 0; color: #777; font-size: 16px; }
+.founder-bio { color: #555; font-size: 18px; line-height: 1.8; }
+.founder-bio p { margin: 0; }
+@media (max-width: 700px) {
+  .about-intro { padding: 38px 20px 12px; }
+  .about-intro h1 { line-height: 1.4; }
+  .about-desktop-break { display: none; }
+  .about-story { grid-template-columns: 1fr; gap: 0; margin-top: 34px; padding: 28px 0 0; font-size: 15px; }
+  .about-story p { margin-bottom: 16px; }
+  .about-founder { margin: 42px auto 60px; padding: 0 20px; }
+  .about-founder > h2 { margin-bottom: 28px; font-size: 27px; }
+  .founder-layout { grid-template-columns: 1fr; gap: 28px; }
+  .founder-profile img { width: min(72vw, 280px); }
+  .founder-bio { font-size: 16px; line-height: 1.75; }
+}
