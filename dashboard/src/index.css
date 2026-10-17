@@ -807,31 +807,247 @@ hr {
   outline: none;
 }
 
-.list li:hover {
-  cursor: move;
-  background-color: #f3f3f3;
-}
-
-.list li:hover > .actions {
-  display: flex;
-  cursor: move;
-}
-
-/* TODO */
-.list li::before {
-  content: "";
-  background: transparent;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+.list li:hover { background-color: #fafbfc; }
 
 .watchlist-number ul li:hover {
   color: rgb(245, 104, 52);
   cursor: pointer;
   background: rgb(243, 243, 243);
+}
+
+/* Watchlist rows and controls */
+.search-container {
+  min-height: 56px;
+  border-bottom: 1px solid rgb(235, 234, 234);
+}
+
+.search {
+  height: 56px;
+  color: #424242;
+  background: #fff;
+}
+
+.search::placeholder {
+  color: #a0a0a0;
+}
+
+.list {
+  margin: 0;
+  padding: 0 0 72px;
+}
+
+.list .watchlist-row {
+  min-height: 48px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+.watchlist-row .item {
+  min-height: 24px;
+  color: #444;
+}
+
+.watchlist-symbol {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #444;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+
+.watchlist-symbol small {
+  color: #a5a5a5;
+  font-size: .62rem;
+  font-weight: 400;
+}
+
+.watchlist-row .item-info {
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.watchlist-row .item-info .percent {
+  color: #929292;
+  min-width: 48px;
+  text-align: right;
+}
+
+.watchlist-row .item-info .price {
+  color: #444;
+  min-width: 60px;
+  text-align: right;
+}
+
+.watchlist-row .down,
+.watchlist-row .item-info .down {
+  color: #df4949;
+}
+
+.watchlist-row .up,
+.watchlist-row .item-info .up {
+  color: #67c988;
+}
+
+.watchlist-row .actions {
+  display: flex;
+  gap: 6px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+}
+
+.watchlist-row .actions button {
+  width: 36px;
+  height: 30px;
+  margin: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.watchlist-row .actions .action {
+  border: 1px solid #d5d5d5;
+  color: #555;
+}
+
+.watchlist-row:hover,
+.watchlist-row:focus-within { background-color: #fafbfc; }
+
+.watchlist-row:hover .actions,
+.watchlist-row:focus-within .actions {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.watchlist-row:hover .item,
+.watchlist-row:focus-within .item { opacity: 0; }
+
+.watchlist-row .item { transition: opacity 120ms ease; }
+
+.watchlist-row .actions button { box-shadow: 0 1px 2px rgb(0 0 0 / 8%); }
+
+.watchlist-empty {
+  padding: 24px 16px !important;
+  color: #888;
+  text-align: center;
+  cursor: default !important;
+}
+
+.watchlist-number {
+  width: 32%;
+  min-height: 54px;
+  height: auto;
+  padding: 0 16px 0 0;
+}
+
+.watchlist-number ul {
+  margin: 0;
+  padding: 0;
+}
+
+.watchlist-number ul li {
+  padding: 0;
+}
+
+.watchlist-number ul li button,
+.watchlist-number .settings {
+  padding: 12px 18px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.watchlist-number ul li.active button {
+  color: #df4949;
+}
+
+.watchlist-number .settings {
+  font-size: 18px;
+}
+
+/* Portfolio tables share the same compact, scrollable layout on every route. */
+.portfolio-page { width: 100%; }
+
+.portfolio-page > .title {
+  margin: 0 0 24px;
+  color: #424242;
+  font-weight: 400;
+}
+
+.portfolio-table {
+  width: 100%;
+  overflow-x: auto;
+  border-top: 1px solid #ededed;
+}
+
+.portfolio-table table {
+  min-width: 720px;
+}
+
+.portfolio-table th,
+.portfolio-table td {
+  white-space: nowrap;
+}
+
+.portfolio-table td.instrument-name {
+  color: #4184f3;
+  font-weight: 500;
+}
+
+.portfolio-table td.profit,
+.profit-text { color: #48a868 !important; }
+
+.portfolio-table td.loss,
+.loss-text { color: #e05a5a !important; }
+
+.muted,
+.demo-data-note { color: #999; font-size: .85rem; }
+
+.portfolio-totals {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.portfolio-totals .col h5 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.portfolio-totals .col:last-child h5 { color: inherit; }
+
+.order-side,
+.order-status {
+  display: inline-block;
+  border-radius: 3px;
+  padding: 4px 7px;
+  font-size: .7rem;
+  font-weight: 500;
+}
+
+.order-side.buy { background: #eaf7ef; color: #29975b; }
+.order-side.sell { background: #fff0ed; color: #df5b4d; }
+.order-status.complete { background: #eaf7ef; color: #29975b; }
+.order-status.open { background: #fff6e5; color: #b47a10; }
+
+.watchlist-container { min-width: 300px; }
+.search { padding-right: 88px; }
+
+@media (min-width: 901px) {
+  .watchlist-container { flex: 0 0 32%; }
+  .content { flex: 1 1 68%; min-width: 0; }
+  .watchlist-number { left: 0; }
 }
 
 .settings:hover {
@@ -877,6 +1093,7 @@ hr {
   .watchlist-container {
     flex-basis: auto;
     width: 100%;
+    min-width: 0;
     height: 180px;
     overflow-y: auto;
     border-bottom: 1px solid #e7e7e7;
@@ -896,6 +1113,8 @@ hr {
     overflow: visible;
     padding: 28px 4%;
   }
+
+  .watchlist-number { left: auto; }
 
   .order-table {
     max-width: 100%;

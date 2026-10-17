@@ -1,16 +1,13 @@
 ﻿import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Menu = () => {
-  const [selectedMenu, setSelectedMenu] = useState(0);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const { pathname } = useLocation();
+  const selectedMenu = ({ "/": 0, "/orders": 1, "/holdings": 2, "/positions": 3, "/funds": 4, "/apps": 5 })[pathname] ?? 0;
 
-  const handleMenuClick = (index) => {
-    setSelectedMenu(index);
-  };
-
-  const handleProfileClick = (index) => {
+  const handleProfileClick = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
   };
 
@@ -26,7 +23,6 @@ const Menu = () => {
             <Link
               style={{ textDecoration: "none" }}
               to="/"
-              onClick={() => handleMenuClick(0)}
             >
               <p className={selectedMenu === 0 ? activeMenuClass : menuClass}>
                 Dashboard
@@ -37,7 +33,6 @@ const Menu = () => {
             <Link
               style={{ textDecoration: "none" }}
               to="/orders"
-              onClick={() => handleMenuClick(1)}
             >
               <p className={selectedMenu === 1 ? activeMenuClass : menuClass}>
                 Orders
@@ -48,7 +43,6 @@ const Menu = () => {
             <Link
               style={{ textDecoration: "none" }}
               to="/holdings"
-              onClick={() => handleMenuClick(2)}
             >
               <p className={selectedMenu === 2 ? activeMenuClass : menuClass}>
                 Holdings
@@ -59,7 +53,6 @@ const Menu = () => {
             <Link
               style={{ textDecoration: "none" }}
               to="/positions"
-              onClick={() => handleMenuClick(3)}
             >
               <p className={selectedMenu === 3 ? activeMenuClass : menuClass}>
                 Positions
@@ -69,8 +62,7 @@ const Menu = () => {
           <li>
             <Link
               style={{ textDecoration: "none" }}
-              to="funds"
-              onClick={() => handleMenuClick(4)}
+              to="/funds"
             >
               <p className={selectedMenu === 4 ? activeMenuClass : menuClass}>
                 Funds
@@ -81,9 +73,8 @@ const Menu = () => {
             <Link
               style={{ textDecoration: "none" }}
               to="/apps"
-              onClick={() => handleMenuClick(6)}
             >
-              <p className={selectedMenu === 6 ? activeMenuClass : menuClass}>
+              <p className={selectedMenu === 5 ? activeMenuClass : menuClass}>
                 Apps
               </p>
             </Link>
