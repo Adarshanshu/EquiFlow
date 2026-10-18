@@ -1,38 +1,86 @@
-import React from "react";
-import { holdings } from "../data/data.js";
+import React, { useEffect, useState } from "react";
+import api from "../api.js";
 
-const money = (value) => value.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const money = (value) => Number(value || 0).toLocaleString("en-IN", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
 
 const Holdings = () => {
-  const invested = holdings.reduce((total, row) => total + row.quantity * row.average, 0);
-  const current = holdings.reduce((total, row) => total + row.quantity * row.ltp, 0);
-  const profit = current - invested;
-  const change = (profit / invested) * 100;
+  const [allHoldings, setAllHoldings] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    let active = true;
+
+    api.get("/allHoldings")
+      .then(({ data }) => {
+        if (active) setAllHoldings(data);
+      })
+      .catch(() => {
+        if (active) setError("Could not load holdings. Check that the backend and MongoDB are running.");
+      });
+
+    return () => { active = false; };
+  }, []);
+
+  const invested = allHoldings.reduce((total, stock) => total + stock.avg * stock.qty, 0);
+  const currentValue = allHoldings.reduce((total, stock) => total + stock.price * stock.qty, 0);
+  const profitLoss = currentValue - invested;
+  const profitPercent = invested ? (profitLoss / invested) * 100 : 0;
 
   return (
     <section className="portfolio-page">
-      <h3 className="title">Holdings <span className="muted">({holdings.length})</span></h3>
+      <h3 className="title">Holdings <span className="muted">({allHoldings.length})</span></h3>
+      {error && <p role="alert">{error}</p>}
+
       <div className="order-table portfolio-table">
         <table>
-          <thead><tr>
-            <th>Instrument</th><th>Qty.</th><th>Avg. cost</th><th>LTP</th><th>Cur. val</th><th>P&amp;L</th><th>Net chg.</th><th>Day chg.</th>
-          </tr></thead>
-          <tbody>{holdings.map((row) => {
-            const value = row.quantity * row.ltp;
-            const pnl = value - row.quantity * row.average;
-            return <tr key={row.name}>
-              <td className="instrument-name">{row.name}</td><td>{row.quantity}</td><td>{money(row.average)}</td><td>{money(row.ltp)}</td><td>{money(value)}</td>
-              <td className={pnl >= 0 ? "profit" : "loss"}>{money(pnl)}</td>
-              <td className={pnl >= 0 ? "profit" : "loss"}>{((pnl / (row.quantity * row.average)) * 100).toFixed(2)}%</td>
-              <td className={row.dayChange >= 0 ? "profit" : "loss"}>{row.dayChange.toFixed(2)}%</td>
-            </tr>;
-          })}</tbody>
+          <thead>
+            <tr>
+              <th>Instrument</th>
+              <th>Qty.</th>
+              <th>Avg. cost</th>
+              <th>LTP</th>
+              <th>Cur. val</th>
+              <th>P&amp;L</th>
+              <th>Net chg.</th>
+              <th>Day chg.</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allHoldings.map((stock, index) => {
+              const curValue = stock.price * stock.qty;
+              const pnl = curValue - stock.avg * stock.qty;
+              const profitClass = pnl >= 0 ? "profit" : "loss";
+              const dayClass = stock.isLoss ? "loss" : "profit";
+
+              return (
+                <tr key={stock._id || stock.name || index}>
+                  <td className="instrument-name">{stock.name}</td>
+                  <td>{stock.qty}</td>
+                  <td>{money(stock.avg)}</td>
+                  <td>{money(stock.price)}</td>
+                  <td>{money(curValue)}</td>
+                  <td className={profitClass}>{money(pnl)}</td>
+                  <td className={profitClass}>{stock.net}</td>
+                  <td className={dayClass}>{stock.day}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
+
       <div className="row portfolio-totals">
         <div className="col"><h5>{money(invested)}</h5><p>Total investment</p></div>
-        <div className="col"><h5>{money(current)}</h5><p>Current value</p></div>
-        <div className="col"><h5 className={profit >= 0 ? "profit-text" : "loss-text"}>{money(profit)} ({change.toFixed(2)}%)</h5><p>Overall P&amp;L</p></div>
+        <div className="col"><h5>{money(currentValue)}</h5><p>Current value</p></div>
+        <div className="col">
+          <h5 className={profitLoss >= 0 ? "profit-text" : "loss-text"}>
+            {money(profitLoss)} ({profitPercent.toFixed(2)}%)
+          </h5>
+          <p>P&amp;L</p>
+        </div>
       </div>
     </section>
   );

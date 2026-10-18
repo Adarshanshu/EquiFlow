@@ -31,11 +31,11 @@ const WatchList = () => {
             <div className="item">
               <span className="watchlist-symbol">{stock.name}<small>NSE</small></span>
               <div className="item-info">
-                <span className={`percent ${stock.change < 0 ? "down" : "up"}`}>
-                  {stock.change > 0 ? "+" : ""}{stock.change.toFixed(2)}%
+                <span className={`percent ${stock.isDown ? "down" : "up"}`}>
+                  {stock.percent}
                 </span>
-                <span className={stock.change < 0 ? "down" : "up"} aria-hidden="true">
-                  {stock.change < 0 ? "\u2193" : "\u2191"}
+                <span className={stock.isDown ? "down" : "up"} aria-hidden="true">
+                  {stock.isDown ? "\u2193" : "\u2191"}
                 </span>
                 <span className="price">{stock.price.toLocaleString("en-IN", { minimumFractionDigits: 2 })}</span>
               </div>

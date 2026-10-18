@@ -1,8 +1,8 @@
 import React from "react";
 import { holdings } from "../data/data.js";
 
-const invested = holdings.reduce((sum, row) => sum + row.quantity * row.average, 0);
-const currentValue = holdings.reduce((sum, row) => sum + row.quantity * row.ltp, 0);
+const invested = holdings.reduce((sum, row) => sum + row.qty * row.avg, 0);
+const currentValue = holdings.reduce((sum, row) => sum + row.qty * row.price, 0);
 const profitLoss = currentValue - invested;
 const formatCompact = (value) => `${(value / 1000).toFixed(2)}k`;
 
