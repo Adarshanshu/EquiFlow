@@ -4,6 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { UserModel } = require("./model/UserModels");
+const { hashPassword, verifyPassword, createSession, readSession } = require("./auth");
 
 const { HoldingsModel } = require("./model/HoldingModels");
 const { PositionModel } = require("./model/PositionModels");
@@ -14,8 +16,95 @@ const uri = process.env.MONGO_URL;
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = new Set([
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:5174",
+  "http://127.0.0.1:5174",
+  process.env.FRONTEND_ORIGIN,
+  process.env.DASHBOARD_ORIGIN,
+].filter(Boolean));
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) return callback(null, true);
+    return callback(new Error("Origin is not allowed by CORS"));
+  },
+  credentials: true,
+}));
 app.use(bodyParser.json());
+
+const SESSION_COOKIE = "equiflow_session";
+const sessionCookieOptions = `Path=/; HttpOnly; SameSite=Lax; Max-Age=${7 * 24 * 60 * 60}${process.env.NODE_ENV === "production" ? "; Secure" : ""}`;
+
+function getCookie(req, name) {
+  const cookie = req.headers.cookie?.split(";").map((part) => part.trim()).find((part) => part.startsWith(`${name}=`));
+  return cookie ? decodeURIComponent(cookie.slice(name.length + 1)) : "";
+}
+
+function requireAuth(req, res, next) {
+  const userId = readSession(getCookie(req, SESSION_COOKIE));
+  if (!userId) return res.status(401).json({ error: "Please log in to continue." });
+  req.userId = userId;
+  return next();
+}
+
+function publicUser(user) {
+  return { id: user._id.toString(), name: user.name, email: user.email };
+}
+
+app.post("/auth/signup", async (req, res) => {
+  const name = typeof req.body.name === "string" ? req.body.name.trim() : "";
+  const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
+  const password = typeof req.body.password === "string" ? req.body.password : "";
+
+  if (name.length < 2 || name.length > 80) return res.status(400).json({ error: "Enter a name between 2 and 80 characters." });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: "Enter a valid email address." });
+  if (password.length < 8) return res.status(400).json({ error: "Password must be at least 8 characters." });
+
+  try {
+    const { salt, hash } = await hashPassword(password);
+    const user = await UserModel.create({ name, email, passwordSalt: salt, passwordHash: hash });
+    res.setHeader("Set-Cookie", `${SESSION_COOKIE}=${encodeURIComponent(createSession(user._id.toString()))}; ${sessionCookieOptions}`);
+    return res.status(201).json({ user: publicUser(user) });
+  } catch (error) {
+    if (error.code === 11000) return res.status(409).json({ error: "An account with this email already exists." });
+    console.error("Signup failed:", error.message);
+    return res.status(500).json({ error: "Could not create your account." });
+  }
+});
+
+app.post("/auth/login", async (req, res) => {
+  const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
+  const password = typeof req.body.password === "string" ? req.body.password : "";
+  try {
+    const user = await UserModel.findOne({ email }).select("+passwordHash +passwordSalt");
+    if (!user || !(await verifyPassword(password, user.passwordSalt, user.passwordHash))) {
+      return res.status(401).json({ error: "Email or password is incorrect." });
+    }
+    res.setHeader("Set-Cookie", `${SESSION_COOKIE}=${encodeURIComponent(createSession(user._id.toString()))}; ${sessionCookieOptions}`);
+    return res.json({ user: publicUser(user) });
+  } catch (error) {
+    console.error("Login failed:", error.message);
+    return res.status(500).json({ error: "Could not log in right now." });
+  }
+});
+
+app.get("/auth/me", requireAuth, async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.userId);
+    if (!user) return res.status(401).json({ error: "Please log in to continue." });
+    return res.json({ user: publicUser(user) });
+  } catch (error) {
+    console.error("Session lookup failed:", error.message);
+    return res.status(500).json({ error: "Could not check your session." });
+  }
+});
+
+app.post("/auth/logout", (req, res) => {
+  res.setHeader("Set-Cookie", `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${process.env.NODE_ENV === "production" ? "; Secure" : ""}`);
+  res.json({ ok: true });
+});
 
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
@@ -186,7 +275,7 @@ app.use(bodyParser.json());
 //   res.send("Done!");
 // });
 
-app.get("/allHoldings", async (req, res) => {
+app.get("/allHoldings", requireAuth, async (req, res) => {
   try {
     const allHoldings = await HoldingsModel.find({});
     res.json(allHoldings);
@@ -196,7 +285,7 @@ app.get("/allHoldings", async (req, res) => {
   }
 });
 
-app.get("/allPositions", async (req, res) => {
+app.get("/allPositions", requireAuth, async (req, res) => {
   try {
     const allPositions = await PositionModel.find({});
     res.json(allPositions);
@@ -206,17 +295,40 @@ app.get("/allPositions", async (req, res) => {
   }
 });
 
-app.post("/newOrder", async (req, res) => {
-  let newOrder = new OrdersModel({
-    name: req.body.name,
-    qty: req.body.qty,
-    price: req.body.price,
-    mode: req.body.mode,
-  });
+app.post("/newOrder", requireAuth, async (req, res) => {
+  const { name, qty, price, mode } = req.body;
+  const quantity = Number(qty);
+  const orderPrice = Number(price);
+  if (!name || !["BUY", "SELL"].includes(mode) || !Number.isInteger(quantity) || quantity < 1 || !Number.isFinite(orderPrice) || orderPrice <= 0) {
+    return res.status(400).json({ error: "Provide a symbol, valid side, quantity, and price." });
+  }
 
-  newOrder.save();
+  try {
+    const order = await OrdersModel.create({
+      time: new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }),
+      userId: req.userId,
+      name,
+      type: mode,
+      product: "CNC",
+      quantity,
+      price: orderPrice,
+      status: "complete",
+    });
+    res.status(201).json(order);
+  } catch (error) {
+    console.error("Could not save order:", error.message);
+    res.status(500).json({ error: "Could not save order" });
+  }
+});
 
-  res.send("Order saved!");
+app.get("/allOrders", requireAuth, async (req, res) => {
+  try {
+    const allOrders = await OrdersModel.find({ userId: req.userId }).sort({ _id: -1 });
+    res.json(allOrders);
+  } catch (error) {
+    console.error("Could not load orders:", error.message);
+    res.status(500).json({ error: "Could not load orders" });
+  }
 });
 
 mongoose.connect(uri)
