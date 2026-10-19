@@ -6,9 +6,9 @@ const currentValue = holdings.reduce((sum, row) => sum + row.qty * row.price, 0)
 const profitLoss = currentValue - invested;
 const formatCompact = (value) => `${(value / 1000).toFixed(2)}k`;
 
-const Summary = () => (
+const Summary = ({ userName = "User" }) => (
   <>
-    <div className="username"><h6>Hi, User!</h6><hr className="divider" /></div>
+    <div className="username"><h6>Hi, {userName}!</h6><hr className="divider" /></div>
     <div className="section">
       <span><p>Equity</p></span>
       <div className="data">

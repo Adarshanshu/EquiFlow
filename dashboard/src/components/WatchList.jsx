@@ -1,13 +1,28 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { watchlist } from "../data/data.js";
+import GeneralContext from "./GeneralContext.jsx";
+import DoughnoutChart from "./DoughnoutChart.jsx";
+
+const chartColors = ["#4184f3", "#56b48a", "#f0ad4e", "#df5b4d", "#8b78c6", "#42a7b8", "#d777a6", "#8c9b59", "#68788c"];
 
 const WatchList = () => {
   const [query, setQuery] = useState("");
   const [activePage, setActivePage] = useState(1);
+  const { openBuyWindow, openSellWindow } = useContext(GeneralContext);
   const filtered = useMemo(
     () => watchlist.filter(({ name }) => name.toLowerCase().includes(query.trim().toLowerCase())),
     [query],
   );
+  const chartData = {
+    labels: watchlist.map((stock) => stock.name),
+    datasets: [{
+      label: "Price",
+      data: watchlist.map((stock) => stock.price),
+      backgroundColor: chartColors,
+      borderColor: "#fff",
+      borderWidth: 2,
+    }],
+  };
 
   return (
     <aside className="watchlist-container" aria-label="Market watchlist">
@@ -41,8 +56,8 @@ const WatchList = () => {
               </div>
             </div>
             <div className="actions" aria-label={`${stock.name} actions`}>
-              <button className="buy" type="button">Buy</button>
-              <button className="sell" type="button">Sell</button>
+              <button className="buy" type="button" onClick={() => openBuyWindow(stock.name)}>Buy</button>
+              <button className="sell" type="button" onClick={() => openSellWindow(stock.name)}>Sell</button>
               <button className="action" type="button" aria-label="Analytics">A</button>
               <button className="action" type="button" aria-label="More options">...</button>
             </div>
@@ -50,6 +65,11 @@ const WatchList = () => {
         ))}
         {filtered.length === 0 && <li className="watchlist-empty">No instruments match &quot;{query}&quot;</li>}
       </ul>
+
+      <section className="watchlist-chart" aria-label="Watchlist price chart">
+        <h3>Watchlist prices</h3>
+        <DoughnoutChart data={chartData} />
+      </section>
 
       <nav className="watchlist-number" aria-label="Watchlist pages">
         <ul>

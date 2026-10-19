@@ -1,14 +1,26 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 
 import { Link, useLocation } from "react-router-dom";
+import api from "../api.js";
 
-const Menu = () => {
+const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173";
+
+const Menu = ({ userName = "User" }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const { pathname } = useLocation();
   const selectedMenu = ({ "/": 0, "/orders": 1, "/holdings": 2, "/positions": 3, "/funds": 4, "/apps": 5 })[pathname] ?? 0;
+  const initials = userName.trim().split(/\s+/).map((part) => part[0]).slice(0, 2).join("").toUpperCase() || "U";
 
   const handleProfileClick = () => {
     setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/auth/logout");
+    } finally {
+      window.location.replace(`${FRONTEND_URL}/login`);
+    }
   };
 
   const menuClass = "menu";
@@ -16,9 +28,16 @@ const Menu = () => {
 
   return (
     <div className="menu-container">
-      <img src="logo.png" style={{ width: "50px" }} />
+      <a href={FRONTEND_URL} aria-label="EquiFlow home" style={{ display: "inline-flex", alignItems: "center" }}>
+        <img src="/logo.png" alt="EquiFlow" style={{ width: "120px", maxWidth: "100%" }} />
+      </a>
       <div className="menus">
         <ul>
+          <li>
+            <a href={FRONTEND_URL} style={{ textDecoration: "none" }}>
+              <p className={menuClass}>Home</p>
+            </a>
+          </li>
           <li>
             <Link
               style={{ textDecoration: "none" }}
@@ -82,12 +101,14 @@ const Menu = () => {
         </ul>
         <hr />
         <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+          <div className="avatar">{initials}</div>
+          <p className="username">{userName}</p>
         </div>
+        {isProfileDropdownOpen && <button className="dashboard-logout" type="button" onClick={handleLogout}>Log out</button>}
       </div>
     </div>
   );
 };
 
 export default Menu;
+

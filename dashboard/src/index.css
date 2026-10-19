@@ -891,16 +891,20 @@ hr {
 }
 
 .watchlist-row .actions {
+  position: static;
   display: flex;
   gap: 6px;
-  padding: 0 14px;
+  width: 100%;
+  height: 0;
+  padding: 0;
   box-sizing: border-box;
   background: transparent;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms;
+  overflow: hidden;
+  transform: none;
+  transition: height 140ms ease, opacity 140ms ease, visibility 140ms;
 }
 
 .watchlist-row .actions button {
@@ -921,16 +925,12 @@ hr {
 
 .watchlist-row:hover .actions,
 .watchlist-row:focus-within .actions {
+  height: 34px;
+  margin-top: 6px;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateY(0);
 }
-
-.watchlist-row:hover .item,
-.watchlist-row:focus-within .item { opacity: 0; }
-
-.watchlist-row .item { transition: opacity 120ms ease; }
 
 .watchlist-row .actions button { box-shadow: 0 1px 2px rgb(0 0 0 / 8%); }
 
@@ -940,6 +940,60 @@ hr {
   text-align: center;
   cursor: default !important;
 }
+
+.watchlist-chart {
+  margin: 16px 14px 78px;
+  padding: 14px 12px 10px;
+  border: 1px solid #edf0f3;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.watchlist-chart h3 {
+  margin: 0 0 8px;
+  color: #666;
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.watchlist-chart-canvas {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.holdings-chart {
+  position: relative;
+  height: 340px;
+  margin: 32px 0 12px;
+  padding: 18px;
+  border: 1px solid #edf0f3;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.dashboard-auth-state {
+  display: grid;
+  min-height: 100vh;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 24px;
+  color: #526071;
+  text-align: center;
+}
+
+.dashboard-auth-state button,
+.dashboard-logout {
+  border: 1px solid #d7e0eb;
+  border-radius: 4px;
+  padding: 9px 14px;
+  background: #fff;
+  color: #387ed1;
+  cursor: pointer;
+}
+
+.dashboard-logout { margin: 0 12px 10px; }
 
 .watchlist-number {
   width: 32%;

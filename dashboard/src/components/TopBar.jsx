@@ -2,7 +2,7 @@
 
 import Menu from "./Menu";
 
-const TopBar = () => {
+const TopBar = ({ userName }) => {
   return (
     <div className="topbar-container">
       <div className="indices-container">
@@ -18,7 +18,7 @@ const TopBar = () => {
         </div>
       </div>
 
-      <Menu />
+      <Menu userName={userName} />
     </div>
   );
 };

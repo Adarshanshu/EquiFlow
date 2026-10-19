@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="609" height="80" viewBox="0 0 609 80" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">EquiFlow</title>
+  <desc id="desc">EquiFlow financial platform logo in blue and navy.</desc>
+  <g transform="translate(3 4)">
+    <path d="M17 8H68C72.4 8 76 11.6 76 16V27H39L18 48V68H76V76H12C5.4 76 1 71.6 1 65V25C1 15.6 8.6 8 17 8Z" fill="#387ED1"/>
+    <path d="M39 27H76V38H44L29 53H76V64H17V48L39 27Z" fill="#1E5FAF"/>
+    <path d="M17 48H29L17 60V48Z" fill="#FFFFFF"/>
+  </g>
+  <text x="111" y="57" font-family="Inter, Arial, Helvetica, sans-serif" font-size="49" font-weight="600" letter-spacing="-1.6" fill="#172B4D">EquiFlow</text>
+</svg>

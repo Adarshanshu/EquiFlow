@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api.js";
+import VerticalGraph from "./VerticalGraph.jsx";
 
 const money = (value) => Number(value || 0).toLocaleString("en-IN", {
   minimumFractionDigits: 2,
@@ -28,6 +29,16 @@ const Holdings = () => {
   const currentValue = allHoldings.reduce((total, stock) => total + stock.price * stock.qty, 0);
   const profitLoss = currentValue - invested;
   const profitPercent = invested ? (profitLoss / invested) * 100 : 0;
+  const chartData = {
+    labels: allHoldings.map((stock) => stock.name),
+    datasets: [{
+      label: "Stock price",
+      data: allHoldings.map((stock) => stock.price),
+      backgroundColor: "rgba(65, 132, 243, 0.55)",
+      borderColor: "rgba(65, 132, 243, 1)",
+      borderWidth: 1,
+    }],
+  };
 
   return (
     <section className="portfolio-page">
@@ -82,6 +93,7 @@ const Holdings = () => {
           <p>P&amp;L</p>
         </div>
       </div>
+      {allHoldings.length > 0 && <VerticalGraph data={chartData} />}
     </section>
   );
 };
