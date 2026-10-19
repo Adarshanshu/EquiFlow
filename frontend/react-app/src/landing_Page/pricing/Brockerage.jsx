@@ -105,8 +105,8 @@ function ChargesList() {
           <li><strong>Payment gateway:</strong> ₹9 + GST; not charged for UPI transfers.</li>
         </ul>
       </div>
-      <a className="official-charges-link" href="https://zerodha.com/charges/" target="_blank" rel="noreferrer">See the official charges page <span aria-hidden="true">→</span></a>
-      <p className="pricing-disclaimer">Rates shown here are for general reference and may change. Check the official tariff and contract note for the charges applicable to your trade.</p>
+      <a className="official-charges-link" href="/pricing">Explore EquiFlow pricing <span aria-hidden="true">→</span></a>
+      <p className="pricing-disclaimer">Rates shown here are illustrative estimates and may not reflect charges from an exchange, broker, or other service provider.</p>
     </section>
   );
 }

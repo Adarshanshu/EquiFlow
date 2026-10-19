@@ -9,9 +9,8 @@ const Stats = () => {
             <h1 className="fs-xl mb-12 text-muted">Trust with confidence</h1>
             <h2 className="fs-lg text-muted">Customer-first always</h2>
             <p className="mb-12 " style={{ width: "75%" }}>
-              That's why 1.8+ crore customers trust Zerodha with ~ ₹9 lakh
-              crores of equity investments, making us India’s largest broker;
-              contributing to 15% of daily retail exchange volumes in India.
+              EquiFlow brings your investing tools together in one place, with
+              clear portfolio views and a straightforward trading experience.
             </p>
             <h2 className="fs-lg text-muted">No spam or gimmicks</h2>
             <p className="mb-12 " style={{ width: "75%" }}>
@@ -19,11 +18,10 @@ const Stats = () => {
               High quality apps that you use at your pace, the way you like.{" "}
               <a href="#">Our philosophies.</a>
             </p>
-            <h2 className="fs-lg text-muted">The Zerodha universe</h2>
+            <h2 className="fs-lg text-muted">The EquiFlow ecosystem</h2>
             <p className="mb-12 " style={{ width: "75%" }}>
-              Not just an app, but a whole ecosystem. Our investments in 30+
-              fintech startups offer you tailored services specific to your
-              needs.
+              Explore products and services designed to support your investing
+              journey, from trading tools to market education.
             </p>
             <h2 className="fs-lg text-muted">Do better with money</h2>
             <p className="mb-12 " style={{ width: "75%" }}>

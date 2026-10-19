@@ -22,7 +22,7 @@ const CreateTicket = () => (
       {topics.map(({ title, links }) => (
         <section className="support-topic-card" key={title}>
           <h3>{title}</h3>
-          <ul>{links.map((label) => <li key={label}><a href="https://support.zerodha.com/">{label}</a></li>)}</ul>
+          <ul>{links.map((label) => <li key={label}><a href="/suport">{label}</a></li>)}</ul>
         </section>
       ))}
     </div>

@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const OpenAccount = () => {
   return (
       <div className="container p-5" style={{ marginBottom: "8rem" }}>
       <div className="row text-center">
-        <h1 className="mt-5">Open a Zerodha account</h1>
+        <h1 className="mt-5">Open an EquiFlow account</h1>
         <p> Modern platforms and apps, ₹0 investments, and flat ₹20 intraday and F&O trades. </p>
-        <button className="p-2 btn-solid theme-primary fs-5 mb-12" style={{width:"min(100%, 220px)",margin:"0 auto"}}>Sign up Now </button>
+        <Link to="/signup" className="p-2 btn-solid theme-primary fs-5 mb-12" style={{width:"min(100%, 220px)",margin:"0 auto",color:"#fff"}}>Sign up Now</Link>
       </div>
         
     </div>

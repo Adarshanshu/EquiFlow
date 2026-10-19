@@ -5,14 +5,14 @@ const Hero = () => (
     <h1>We pioneered the discount broking model in India.<br className="about-desktop-break" /> Now, we are breaking ground with our technology.</h1>
     <div className="about-story">
       <div>
-        <p>We kick-started operations on the 15th of August, 2010 with the goal of breaking all barriers that traders and investors face in India in terms of cost, support, and technology. We named the company Zerodha, a combination of Zero and “Rodha”, the Sanskrit word for barrier.</p>
-        <p>Today, our disruptive pricing models and in-house technology have made us one of India’s largest stock brokers.</p>
-        <p>Over 1.8 crore clients place billions of orders every year through our ecosystem of investment platforms, contributing over 15% of Indian retail trading volumes.</p>
+        <p>EquiFlow is a project built to make trading and investing tools easier to explore in one place.</p>
+        <p>Our goal is to create a clear, approachable experience for learning about markets and managing a portfolio.</p>
+        <p>The platform brings together a dashboard, investment views, and account tools in a single experience.</p>
       </div>
       <div>
-        <p>In addition, we run popular online educational and community initiatives to empower retail traders and investors.</p>
-        <p>Rainmatter, our fintech fund and incubator, has invested in several fintech startups with the goal of growing the Indian capital markets.</p>
-        <p>We’re always up to something new. Catch up on the latest updates on our blog, see what the media is saying, or learn more about our business and product philosophies.</p>
+        <p>We aim to make market information and investing workflows easier to understand for everyday users.</p>
+        <p>EquiFlow is evolving as we build and improve its products and tools.</p>
+        <p>Explore the platform to learn more about its features and how they fit together.</p>
       </div>
     </div>
   </section>

@@ -5,6 +5,7 @@
 .home-page .container { max-width: 1120px; }
 .home-page a { color: #387ed1; text-decoration: none; }
 .home-page a:hover { color: #222; }
+.home-page a.home-signup-button, .home-page a.home-signup-button:hover { color: #fff; }
 @media (max-width: 767px) {
   .home-page .container { width: 100%; padding-left: 20px !important; padding-right: 20px !important; }
   .home-page .row { margin-left: 0; margin-right: 0; }

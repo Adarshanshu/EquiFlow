@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -7,7 +8,7 @@ const Hero = () => {
         <img src="media/images/homeHero.png" alt="Explore investing with EquiFlow" className="mb-5"/>
         <h1 className="mt-5">Invest in everything</h1>
         <p> Online platform to invest in stocks, IPOs, derivatives, mutual funds, ETFs, bonds, and more. </p>
-        <button className="p-2 btn-solid theme-primary fs-5 mb-12 home-signup-button">Signup Now</button>
+        <Link className="p-2 btn-solid theme-primary fs-5 mb-12 home-signup-button" to="/signup">Signup Now</Link>
       </div>
         
     </div>
