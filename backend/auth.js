@@ -2,10 +2,14 @@ const crypto = require("node:crypto");
 const { promisify } = require("node:util");
 
 const scrypt = promisify(crypto.scrypt);
-const sessionSecret = process.env.AUTH_SECRET || crypto.randomBytes(32).toString("hex");
+const isProduction = process.env.NODE_ENV === "production" || process.env.RENDER === "true";
+const sessionSecret = process.env.AUTH_SECRET || (isProduction ? null : crypto.randomBytes(32).toString("hex"));
 
+if (!sessionSecret) {
+  throw new Error("AUTH_SECRET must be set in production so sessions remain valid across backend restarts.");
+}
 if (!process.env.AUTH_SECRET) {
-  console.warn("AUTH_SECRET is unset; sessions will expire when the backend restarts.");
+  console.warn("AUTH_SECRET is unset; local sessions will expire when the backend restarts.");
 }
 
 async function hashPassword(password, salt = crypto.randomBytes(16).toString("hex")) {

@@ -105,7 +105,9 @@ app.get("/auth/me", requireAuth, async (req, res) => {
 });
 
 app.post("/auth/logout", (req, res) => {
-  res.setHeader("Set-Cookie", `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${process.env.NODE_ENV === "production" ? "; Secure" : ""}`);
+  // Cookie attributes must match the auth cookie in production for browsers to
+  // reliably clear it across the frontend and dashboard origins.
+  res.setHeader("Set-Cookie", `${SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=${isProduction ? "None" : "Lax"}; Max-Age=0${isProduction ? "; Secure" : ""}`);
   res.json({ ok: true });
 });
 
