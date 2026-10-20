@@ -1,9 +1,11 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://equiflow-backend-wb75.onrender.com";
+export const API_URL = import.meta.env.PROD
+  ? "https://equiflow-backend-wb75.onrender.com"
+  : (import.meta.env.VITE_API_URL || "http://localhost:3002");
 
 export async function authRequest(path, body) {
   let response;
   try {
-    response = await fetch(`${API_URL}${path}`, {
+    response = await fetch(`${API_URL.replace(/\/+$/, "")}${path}`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -18,4 +20,6 @@ export async function authRequest(path, body) {
   return data;
 }
 
-export const DASHBOARD_URL = "https://equiflow-dashboard1.onrender.com";
+export const DASHBOARD_URL = import.meta.env.PROD
+  ? "https://equiflow-dashboard1.onrender.com"
+  : (import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5174");

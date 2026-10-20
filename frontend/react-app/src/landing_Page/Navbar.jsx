@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DASHBOARD_URL } from "../api.js";
+import { API_URL, DASHBOARD_URL } from "../api.js";
 import "./navbar.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "https://equiflow-backend-wb75.onrender.com";
 
 const links = [
   ["Login", "/login"],

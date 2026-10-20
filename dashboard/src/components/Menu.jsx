@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import api from "../api.js";
 
-const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || "https://equiflow-frontend.onrender.com";
+const FRONTEND_URL = import.meta.env.PROD
+  ? "https://equiflow-frontend.onrender.com"
+  : (import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173");
 
 const Menu = ({ userName = "User" }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
