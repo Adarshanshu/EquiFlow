@@ -44,19 +44,12 @@ const Holdings = () => {
     <section className="portfolio-page">
       <h3 className="title">Holdings <span className="muted">({allHoldings.length})</span></h3>
       {error && <p role="alert">{error}</p>}
-
       <div className="order-table portfolio-table">
         <table>
           <thead>
             <tr>
-              <th>Instrument</th>
-              <th>Qty.</th>
-              <th>Avg. cost</th>
-              <th>LTP</th>
-              <th>Cur. val</th>
-              <th>P&amp;L</th>
-              <th>Net chg.</th>
-              <th>Day chg.</th>
+              <th>Instrument</th><th>Qty.</th><th>Avg. cost</th><th>LTP</th>
+              <th>Cur. val</th><th>P&amp;L</th><th>Net chg.</th><th>Day chg.</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +75,6 @@ const Holdings = () => {
           </tbody>
         </table>
       </div>
-
       <div className="row portfolio-totals">
         <div className="col"><h5>{money(invested)}</h5><p>Total investment</p></div>
         <div className="col"><h5>{money(currentValue)}</h5><p>Current value</p></div>
