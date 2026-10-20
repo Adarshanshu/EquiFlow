@@ -37,7 +37,8 @@ app.use(cors({
 app.use(bodyParser.json());
 
 const SESSION_COOKIE = "equiflow_session";
-const sessionCookieOptions = `Path=/; HttpOnly; SameSite=Lax; Max-Age=${7 * 24 * 60 * 60}${process.env.NODE_ENV === "production" ? "; Secure" : ""}`;
+const isProduction = process.env.NODE_ENV === "production" || process.env.RENDER === "true";
+const sessionCookieOptions = `Path=/; HttpOnly; SameSite=${isProduction ? "None" : "Lax"}; Max-Age=${7 * 24 * 60 * 60}${isProduction ? "; Secure" : ""}`;
 
 function getCookie(req, name) {
   const cookie = req.headers.cookie?.split(";").map((part) => part.trim()).find((part) => part.startsWith(`${name}=`));
