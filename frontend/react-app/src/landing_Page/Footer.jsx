@@ -18,9 +18,9 @@ const Footer = () => (
         </div>
         <div className="col">
           <p>support</p>
-          <a href="/suport" style={{ textDecoration: "none", color: "black" }}>Contact us</a><br />
-          <a href="/suport" style={{ textDecoration: "none", color: "black" }}>Support portal</a><br />
-          <a href="/suport" style={{ textDecoration: "none", color: "black" }}>Help topics</a><br />
+          <a href="/support" style={{ textDecoration: "none", color: "black" }}>Contact us</a><br />
+          <a href="/support" style={{ textDecoration: "none", color: "black" }}>Support portal</a><br />
+          <a href="/support" style={{ textDecoration: "none", color: "black" }}>Help topics</a><br />
         </div>
         <div className="col">
           <p>account</p>

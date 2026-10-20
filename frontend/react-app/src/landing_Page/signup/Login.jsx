@@ -8,6 +8,7 @@ const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [openingDashboard, setOpeningDashboard] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,6 +16,8 @@ const Login = () => {
     setError("");
     try {
       await authRequest("/auth/login", form);
+      setOpeningDashboard(true);
+      await new Promise((resolve) => window.setTimeout(resolve, 250));
       window.location.assign(DASHBOARD_URL);
     } catch (requestError) {
       setError(requestError.message);
@@ -23,6 +26,8 @@ const Login = () => {
   };
 
   const update = (event) => setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+
+  if (openingDashboard) return <main className="auth-transition" role="status" aria-live="polite"><span className="auth-transition-spinner" /><h1>Welcome back</h1><p>Opening your dashboard…</p></main>;
 
   return (
     <div className="auth-page">

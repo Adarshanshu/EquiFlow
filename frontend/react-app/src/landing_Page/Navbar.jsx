@@ -9,7 +9,7 @@ const links = [
   ["About", "/about"],
   ["Products", "/product"],
   ["Pricing", "/pricing"],
-  ["Support", "/suport"],
+  ["Support", "/support"],
 ];
 
 const Navbar = () => {

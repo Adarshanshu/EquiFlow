@@ -8,6 +8,7 @@ const Signup = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [openingDashboard, setOpeningDashboard] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,6 +16,8 @@ const Signup = () => {
     setError("");
     try {
       await authRequest("/auth/signup", form);
+      setOpeningDashboard(true);
+      await new Promise((resolve) => window.setTimeout(resolve, 250));
       window.location.assign(DASHBOARD_URL);
     } catch (requestError) {
       setError(requestError.message);
@@ -23,6 +26,8 @@ const Signup = () => {
   };
 
   const update = (event) => setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+
+  if (openingDashboard) return <main className="auth-transition" role="status" aria-live="polite"><span className="auth-transition-spinner" /><h1>Account created</h1><p>Opening your dashboard…</p></main>;
 
   return (
     <div className="auth-page">

@@ -14,7 +14,7 @@ export default function Hero() {
       <div className="support-hero-inner">
         <div className="support-hero-topline">
           <h1>Support Portal</h1>
-          <a href="/suport">Track tickets</a>
+          <a href="/support">Track tickets</a>
         </div>
         <div className="support-hero-content">
           <div className="support-search-column">

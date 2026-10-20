@@ -13,4 +13,10 @@
 .auth-switch { margin: 22px 0 0 !important; text-align: center; font-size: .9rem; }
 .auth-switch a { color: #387ed1; font-weight: 600; text-decoration: none; }
 .auth-switch a:hover { text-decoration: underline; }
+.auth-transition { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: #f7f9fc; color: #344054; text-align: center; animation: auth-arrive .22s ease-out both; }
+.auth-transition h1 { margin: 14px 0 0; color: #202b3c; font-size: 1.65rem; }
+.auth-transition p { margin: 0; color: #667085; }
+.auth-transition-spinner { width: 30px; height: 30px; border: 3px solid #d9e7f7; border-top-color: #387ed1; border-radius: 50%; animation: auth-spin .8s linear infinite; }
+@keyframes auth-spin { to { transform: rotate(360deg); } }
+@keyframes auth-arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 520px) { .auth-card { margin-top: 28px; padding: 26px 20px; } }
