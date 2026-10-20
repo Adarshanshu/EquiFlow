@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './landing_Page/home/HomePage.jsx'
-import Signup from "./landing_Page/signup/Signup.jsx"
+import Signup from "./landing_Page/signup/SignUp.jsx"
 import Login from "./landing_Page/signup/Login.jsx"
 import AboutPage from "./landing_Page/about/AboutPage.jsx"
 import ProductPage from "./landing_Page/products/ProductPage.jsx"
