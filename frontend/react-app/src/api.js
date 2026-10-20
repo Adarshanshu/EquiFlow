@@ -18,4 +18,4 @@ export async function authRequest(path, body) {
   return data;
 }
 
-export const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL || "https://equiflow-dashboard1.onrender.com";
+export const DASHBOARD_URL = "https://equiflow-dashboard1.onrender.com";
