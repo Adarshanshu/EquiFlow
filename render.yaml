@@ -1,5 +1,15 @@
 services:
   - type: web
+    name: equiflow-dashboard1
+    runtime: static
+    rootDir: dashboard
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+  - type: web
     name: equiflow-frontend
     runtime: static
     rootDir: frontend/react-app
