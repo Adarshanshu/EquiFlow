@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3002";
+const API_URL = import.meta.env.VITE_API_URL || "https://equiflow-backend-wb75.onrender.com";
 
 export async function authRequest(path, body) {
   let response;
@@ -10,7 +10,7 @@ export async function authRequest(path, body) {
       body: JSON.stringify(body),
     });
   } catch {
-    throw new Error("Could not reach the backend. Make sure it is running on port 3002.");
+    throw new Error("Could not reach the backend.");
   }
 
   const data = await response.json().catch(() => ({}));
@@ -18,4 +18,4 @@ export async function authRequest(path, body) {
   return data;
 }
 
-export const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL || "http://localhost:5174";
+export const DASHBOARD_URL = import.meta.env.VITE_DASHBOARD_URL || "https://equiflow-dashboard1.onrender.com";

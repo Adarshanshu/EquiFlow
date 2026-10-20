@@ -17,6 +17,8 @@ const uri = process.env.MONGO_URL;
 const app = express();
 
 const allowedOrigins = new Set([
+  "https://equiflow-frontend.onrender.com",
+  "https://equiflow-dashboard1.onrender.com",
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "http://localhost:5174",

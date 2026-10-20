@@ -3,7 +3,7 @@ import api from "../api.js";
 import Dashboard from "./Dashboard.jsx";
 import TopBar from "./TopBar.jsx";
 
-const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173";
+const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || "https://equiflow-frontend.onrender.com";
 
 const Home = () => {
   const [authState, setAuthState] = useState("checking");
