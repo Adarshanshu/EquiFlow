@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: equiflow-dashboard
+    name: dashboard
     runtime: static
     rootDir: dashboard
     buildCommand: npm install && npm run build
