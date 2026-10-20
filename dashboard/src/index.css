@@ -972,6 +972,31 @@ hr {
   background: #fff;
 }
 
+.dashboard-transition {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #f7f9fc;
+  color: #202b3c;
+  animation: dashboard-transition-in .18s ease-out both;
+}
+.dashboard-transition span {
+  width: 30px;
+  height: 30px;
+  border: 3px solid #d9e7f7;
+  border-top-color: #387ed1;
+  border-radius: 50%;
+  animation: dashboard-transition-spin .8s linear infinite;
+}
+.dashboard-transition small { color: #667085; }
+@keyframes dashboard-transition-spin { to { transform: rotate(360deg); } }
+@keyframes dashboard-transition-in { from { opacity: 0; } to { opacity: 1; } }
+
 .dashboard-auth-state {
   display: grid;
   min-height: 100vh;

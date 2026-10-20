@@ -9,6 +9,7 @@ const FRONTEND_URL = import.meta.env.PROD
 
 const Menu = ({ userName = "User" }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
   const { pathname } = useLocation();
   const selectedMenu = ({ "/": 0, "/orders": 1, "/holdings": 2, "/positions": 3, "/funds": 4, "/apps": 5 })[pathname] ?? 0;
   const initials = userName.trim().split(/\s+/).map((part) => part[0]).slice(0, 2).join("").toUpperCase() || "U";
@@ -18,9 +19,11 @@ const Menu = ({ userName = "User" }) => {
   };
 
   const handleLogout = async () => {
+    setLoggingOut(true);
     try {
       await api.post("/auth/logout");
     } finally {
+      await new Promise((resolve) => window.setTimeout(resolve, 180));
       window.location.replace(`${FRONTEND_URL}/login`);
     }
   };
@@ -29,6 +32,8 @@ const Menu = ({ userName = "User" }) => {
   const activeMenuClass = "menu selected";
 
   return (
+    <>
+    {loggingOut && <div className="dashboard-transition" role="status" aria-live="polite"><span /><strong>Signing you out</strong><small>Returning to EquiFlow…</small></div>}
     <div className="menu-container">
       <a href={FRONTEND_URL} aria-label="EquiFlow home" style={{ display: "inline-flex", alignItems: "center" }}>
         <img src="/logo.png" alt="EquiFlow" style={{ width: "120px", maxWidth: "100%" }} />
@@ -109,6 +114,7 @@ const Menu = ({ userName = "User" }) => {
         {isProfileDropdownOpen && <button className="dashboard-logout" type="button" onClick={handleLogout}>Log out</button>}
       </div>
     </div>
+    </>
   );
 };
 
